@@ -10,7 +10,7 @@ int main()
     printf("you have %d times chances totally.\n",guess_max);
     srand(time(NULL));  //初始化种子，否则会一直生成一样的随机数
     rand_num = rand() % 100 + 1;  //生成1~100的随机数
-    printf("correct answer is:%d\n",rand_num);  //测试语句
+    //printf("correct answer is:%d\n",rand_num);  //测试语句
     
 
     for(count=0;count<=guess_max;count++)  //main recycle
@@ -59,7 +59,7 @@ int main()
         printf("correct answer is:%d\n",rand_num);
     }
 
-        while (getchar() != '\n'); {}  //放闪退机制
+    while (getchar() != '\n'); {}  //放闪退机制
     printf("\nPress any key to kill the terminal...");
     getchar(); 
     
