@@ -9,9 +9,9 @@ int main()
             for(c=0;c<=1;c++)
             {
                 if(((a&&!b)||(!a&&b))&&((b&&a==c)||(!b&&a!=c))&&((c&&!a)||!(c&&a)))  //核心逻辑式，
-                    {
-                        printf("a=%d,b=%d,c=%d\n",a,b,c);
-                    }
+                {
+                    printf("a=%d,b=%d,c=%d\n",a,b,c);
+                }
                 
             }
             
