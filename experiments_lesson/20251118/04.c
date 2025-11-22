@@ -26,7 +26,7 @@ int main()
     {
         s[i]=t1[i];
     }
-
+    
     for(i=0;i<j;i++)
     {
         s[k+i]=t2[i];
