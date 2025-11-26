@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "e:/c_projects/C_home_works/experiments_lesson/20251118",
-      "program": "e:/c_projects/C_home_works/experiments_lesson/20251118/output",
+      "cwd": "e:/c_projects/C_home_works/experiments_lesson/20251125",
+      "program": "e:/c_projects/C_home_works/experiments_lesson/20251125/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
