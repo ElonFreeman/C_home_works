@@ -5,12 +5,12 @@ int fun(int x)
     int a=x*x;
     if(x<10)
     {
-        if((a-(a%10))/10==0)
+        if((a-x)%10==0)
         {
             printf("yes");
         }
 
-        else if((a-(a%10))/10!=0)
+        else if((a-x)%10!=0)
         {
             printf("no");
         }
@@ -18,17 +18,18 @@ int fun(int x)
 
     else if(x>10)
     {
-        if((a-(a%10))/100==0)
+        if((a-x)%100==0)
         {
             printf("yes");
         }
 
-        else if((a-(a%10))/100!=0)
+        else if((a-x)%100!=0)
         {
             printf("no");
         }
     }
 
+    return 0;
 }
 
 int main()
