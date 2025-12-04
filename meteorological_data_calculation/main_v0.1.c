@@ -8,7 +8,7 @@ void dayaver(float daytemp[][4])
     for(day=0;day<7;day++)
     {
         sum=0;
-
+        
         for(count=0;count<4;count++)
         {
             sum+=daytemp[day][count];
@@ -17,15 +17,13 @@ void dayaver(float daytemp[][4])
         aver=sum/4.0;
         printf("%d:%f\n",day+1,aver);
     }
-
-    return 0;
 }
 
 //2.
-void daydiff(float daytemp[][4])
+float *daydiff(float daytemp[][4],float daily_diff[])
 {
     int count,day;
-    float max,min,diff,diffs[day];
+    float max,min,diff;
 
     for(day=0;day<7;day++)
     {
@@ -36,7 +34,6 @@ void daydiff(float daytemp[][4])
             {
                 max=daytemp[day][count];
             }
-
         }
 
         min=daytemp[day][0];
@@ -50,37 +47,37 @@ void daydiff(float daytemp[][4])
 
         diff=max-min;
         printf("%d:%f\n",day+1,diff);
-        diffs[day]=diff;
+        daily_diff[day]=diff;
     }
 
-    return diffs;
+    return daily_diff;
 }
 
 //3.
-void week_maxdiff(float daydiffs[])  //the daily maximum and minimum of temperature
+void week_maxdiff(float day_diffs[])  //the daily maximum and minimum of temperature
 {
-    float max=daydiffs[0],min=daydiffs[0];
+    float max=day_diffs[0],min=day_diffs[0];
     int day,contamax=0,contamin=0;
 
     for(day=0;day<7;day++)  //max value
     {
-        if(daydiffs[day]>max)
+        if(day_diffs[day]>max)
         {
-            max=daydiffs[day];
+            max=day_diffs[day];
             contamax=day+1;
         }
     }
-    printf("%d:%f\n",contamax,max);
+    printf("max day %d:%f\n",contamax,max);
 
     for(day=0;day<7;day++)  //min value
     {
-        if(daydiffs[day]<min)
+        if(day_diffs[day]<min)
         {
-            min=daydiffs[day];
+            min=day_diffs[day];
             contamin=day+1;
         }
     }
-    printf("%d:%f\n",contamin,min);
+    printf("min day %d:%f\n",contamin,min);
 }
 
 
@@ -89,31 +86,25 @@ int main()
 {
     float temp_data[7][4]=
     {
-        {1,2,3,4},
-        {5,6,7,8},
-        {9,10,11,12},
-        {13,14,15,16},
-        {17,18,19,20},
-        {21,22,23,24},
-        {25,26,27,28}
+        {9,8,13,12},  //12.5
+        {10,9,15,12},  //12.6
+        {10,7,12,11},  //12.7
+        {11,9,16,14},  //12.8
+        {13,11,11,11},  //12.9
+        {10,10,14,12},  //12.10
+        {11,10,15,13}  //12.11
     };
 
-    float daydiffs[]={},maxdiff,mindiff;
+    float daily_diffs[7];
 
     printf("daily average:\n");
     dayaver(temp_data);
 
     printf("daily different:\n");
-    daydiff(temp_data);
+    daydiff(temp_data,daily_diffs);
 
-    /*for(int day=0;day<7;day++)
-    {
-        daydiffs[day]=daydiff(temp_data);
-    }*/
-
-    //printf("weekly maximum and minimum:\n");
-    //week_maxdiff(daydiffs);
-
+    printf("weekly differents maximum and minimum:\n");
+    week_maxdiff(daily_diffs);
 
     return 0;
 }
