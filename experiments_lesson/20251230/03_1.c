@@ -3,7 +3,7 @@
 
 struct chengji
 {
-    char xuehao[3];
+    char id[3];
     char name[15];
     struct scores
     {
@@ -29,7 +29,7 @@ int main(void)
 
         for(int j=0;(a=fgetc(fp))!=' ';j++)  //xuehao
         {
-            stuinfo[i].xuehao[j]=a;
+            stuinfo[i].id[j]=a;
         }
 
         int tmp=0;                           //name
