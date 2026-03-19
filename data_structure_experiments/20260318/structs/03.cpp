@@ -9,10 +9,10 @@ struct infos
 
 void sort(infos *stu_info,int length)
 {
-    sort(stu_info,stu_info+length,[](int a,int b){return a>b;});
+    sort((*stu_info).score.begin(),(*stu_info).score.end(),[](int a,int b){return a>b;});
 }
 
-int mian(void)
+int main(void)
 {
     int n=0;
     cin >> n;
