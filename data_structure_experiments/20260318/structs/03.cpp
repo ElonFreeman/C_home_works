@@ -4,12 +4,12 @@ using namespace std;
 struct infos
 {
     int stu_id;
-    int score;
+    float score;
 };
 
-void sort(infos *stu_info,int length)
+void info_sort(vector<infos> *stu_info)
 {
-    sort((*stu_info).score.begin(),(*stu_info).score.end(),[](int a,int b){return a>b;});
+    sort((*stu_info).begin(),(*stu_info).end(),[](const infos a,const infos b){return a.score>b.score;});
 }
 
 int main(void)
@@ -23,7 +23,17 @@ int main(void)
         cin >> traverse.score;
     }
 
+    info_sort(&stu_infos);
 
+    for(int counter=0;counter<n;counter++)
+    {
+        if(counter>0 && stu_infos.at(counter).score==stu_infos.at(counter-1).score)
+        {
+            printf("%d %d %.2f\n",counter,stu_infos.at(counter).stu_id,stu_infos.at(counter).score);
+            continue;
+        }
+        printf("%d %d %.2f\n",counter+1,stu_infos.at(counter).stu_id,stu_infos.at(counter).score);
+    }
 
     return 0;
 }
