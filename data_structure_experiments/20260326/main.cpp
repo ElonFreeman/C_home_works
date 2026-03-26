@@ -120,7 +120,29 @@ void insert(info *head)
     int i=0;
     while(currentnext->next!=nullptr)
     {
-        
+        i++;
+        if(i==position)
+        {
+            info *node=new info;
+
+            /*inert link*/
+            currentlast->next=node;
+            node->next=currentnext;
+
+            /*input infomations*/
+            cout << "Input ID number:"; cin >> node->identi;
+            cout << "Input Name:"; cin >> node->name;
+            cout << "Input grade:"; cin >> node->grade;
+            cout << "Input classes:"; cin >> node->classes;
+
+            break;
+        }
+
+    }
+    if(i<position)
+    {
+        cout << "Illeagal input!";
+        //return 1;
     }
 }
 
