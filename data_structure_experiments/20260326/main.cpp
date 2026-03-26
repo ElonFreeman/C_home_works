@@ -169,7 +169,6 @@ int main(void)
             case 3:search(head); break;
             case 4:print(head); break;
             case 5:insert(head); break;
-            //case 6:break;break;
             default : cout << "Illeagal input!";
         }
 
