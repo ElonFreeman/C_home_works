@@ -11,15 +11,17 @@ struct info
     info *next;
 };
 
-void initialization(info *head)
+void initialization(info **head)
 {
-    head=new info;
-    head->next=nullptr;
+    *head=new info;
+    (*head)->next=nullptr;
 }
 
 void add(info *head)
 {
-    info *current=head;
+    info *current=new info;
+    current=head;
+
     /*move to tail*/
     while(current->next!=nullptr)
     {
@@ -149,13 +151,17 @@ void insert(info *head)
 int main(void)
 {
     info *head=nullptr;
-    initialization(head);  //set up a empty linked list
+    initialization(&head);  //set up a empty linked list
     cout << "What do you want to do?" << endl;
     cout << "(1.add,2.delete,3.search,4.print,5.insert,6.exit)" << endl;
     int whattodo=0;
     
     do
     {
+        cin >> whattodo;
+        if(whattodo==6)
+            break;
+
         switch(whattodo)
         {
             case 1:add(head); break;
@@ -163,7 +169,7 @@ int main(void)
             case 3:search(head); break;
             case 4:print(head); break;
             case 5:insert(head); break;
-            case 6:break;break;
+            //case 6:break;break;
             default : cout << "Illeagal input!";
         }
 
