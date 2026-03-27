@@ -40,10 +40,6 @@ void add(info *head)
 
     /*link the new node onto tail,pointer domain*/
     current->next=node;
-
-    /*set up a tail node*/
-    info *tail=new info;
-    node->next=tail;
 }
 
 void dele(info *head)
@@ -67,16 +63,19 @@ void dele(info *head)
         /*check info*/
         if(current->next->name==name)
         {
+            info *target=current->next;
             current->next=current->next->next;
-            delete current->next;
-            break;
+            delete target;
+            return;
         }
         /*move*/
         current=current->next;
     }
+
+    cout << "Not found!" << endl;
 }
 
-int search(info *head)
+void search(info *head)
 {
     /*Input the target to search*/
     string name;
@@ -92,12 +91,12 @@ int search(info *head)
         {
             cout << "Got it!" << endl;
             cout << current->identi << ' ' << current->name << ' ' << current->grade << ' ' << current->classes << endl;
-            return 0;
+            return;
         }
     }
     /*incommon process*/
     cout << "No such person found!";
-    return 1;
+    return;
 }
 
 void print(info *head)
