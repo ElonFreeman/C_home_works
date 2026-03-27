@@ -48,29 +48,31 @@ void add(info *head)
 
 void dele(info *head)
 {
+    /*check empty*/
+    if(head==nullptr)
+    {
+        cout << "Error!" << endl;
+        return;
+    }
+
    /*Input the target to delete*/
     string name;
     cout << "Which student do you want to delete:(Input name)";
     cin >> name; 
 
-    info *currentlast=nullptr,*current=nullptr,*currentnext=nullptr;
-    currentlast=head,
-    current=currentlast->next,
-    currentnext=current->next;
+    info *current=head;
 
-    while(currentnext->next!=nullptr)
+    while(current->next!=nullptr)
     {
-        currentlast=currentlast->next;
-        current=current->next;
-        currentnext=currentnext->next;
-
-        if(current->name==name)
+        /*check info*/
+        if(current->next->name==name)
         {
-            current->next=nullptr;
-            currentlast->next=currentnext;
-            delete current;
+            current->next=current->next->next;
+            delete current->next;
             break;
         }
+        /*move*/
+        current=current->next;
     }
 }
 
@@ -114,50 +116,44 @@ void insert(info *head)
     cout << "Which position do you want to insert:(input a number)";
     cin >> position;
 
-    info *currentlast=nullptr,*current=nullptr,*currentnext=nullptr;
-    currentlast=head,
-    current=currentlast->next,
-    currentnext=current->next;
+    info *current=head;
 
-    int i=0;
-    while(currentnext->next!=nullptr)
+    int i=1;
+    while(current->next!=nullptr && i<position)
     {
+        current=current->next;
         i++;
-        if(i==position)
-        {
-            info *node=new info;
-
-            /*inert link*/
-            currentlast->next=node;
-            node->next=currentnext;
-
-            /*input infomations*/
-            cout << "Input ID number:"; cin >> node->identi;
-            cout << "Input Name:"; cin >> node->name;
-            cout << "Input grade:"; cin >> node->grade;
-            cout << "Input classes:"; cin >> node->classes;
-
-            break;
-        }
-
     }
     if(i<position)
     {
         cout << "Illeagal input!";
-        //return 1;
+        return;
     }
+
+    
+    info *node=new info;
+
+    /*inert link*/
+    node->next = current->next;
+    current->next = node;
+
+    /*input infomations*/
+    cout << "Input ID number:"; cin >> node->identi;
+    cout << "Input Name:"; cin >> node->name;
+    cout << "Input grade:"; cin >> node->grade;
+    cout << "Input classes:"; cin >> node->classes;
 }
 
 int main(void)
 {
     info *head=nullptr;
     initialization(&head);  //set up a empty linked list
-    cout << "What do you want to do?" << endl;
-    cout << "(1.add,2.delete,3.search,4.print,5.insert,6.exit)" << endl;
     int whattodo=0;
     
     do
     {
+        cout << "What do you want to do?" << endl;
+        cout << "(1.add,2.delete,3.search,4.print,5.insert,6.exit)" << endl;
         cin >> whattodo;
         if(whattodo==6)
             break;
