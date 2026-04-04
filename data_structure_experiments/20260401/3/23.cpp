@@ -25,13 +25,22 @@ void add(node *head,int data)
 void insert(node *head,int data)
 {
     node *current=head;
-    while(current->next->data<data)
+    while(current->next!=nullptr)
     {
+        current=current->next;
         if(current->data==data)
         {
             return;
         }
+    }
+    /*if(current->data==data)
+    {
+        return;
+    }*/
 
+    current=head;
+    while(current->next->data<data)
+    {
         current=current->next;
     }
 
@@ -46,8 +55,8 @@ void print(node *head)
     node *current=head;
     while(current->next!=nullptr)
     {
-        cout << current->data;
         current=current->next;
+        cout << current->data << ' ';
     }
 
     return;
