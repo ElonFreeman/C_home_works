@@ -11,7 +11,7 @@ void creat_bt_pre(bt_node **root)
 {
     char data; cin >> data;
 
-    if(data=='#')
+    if(data=='*')
     {
         *root=nullptr;
     }
@@ -41,7 +41,7 @@ void inorder(bt_node *root)
 
     inorder(root->lchild);
     cout << (char)(root->data) << ' ';
-    inorder(root->lchild);
+    inorder(root->rchild);
 }
 
 void postorder(bt_node *root)
@@ -59,19 +59,19 @@ void levelorder(bt_node *root)
     if(root==nullptr)
     {return;}
 
-
+    
 }
 
 
 int main(void)
 {
     bt_node *root=nullptr;
-
+    
     creat_bt_pre(&root);
     preorder(root); cout << endl;
     inorder(root);  cout << endl;
     postorder(root);    cout << endl;
-    //levelorder(root);   cout << endl;
+    levelorder(root);   cout << endl;
 
     return 0;
 }
