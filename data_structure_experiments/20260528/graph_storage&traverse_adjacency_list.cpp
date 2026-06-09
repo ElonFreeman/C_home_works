@@ -87,9 +87,8 @@ void DFS(vertexnode *begin,int begin_index)
     edge *edges=begin[begin_index].first_edge;
     while(edges)
     {
-        if(access_lable[edges->index]!=true)
+        if(access_lable[edges->index]==false)
         {
-            cout << begin[edges->index].data << ' ',access_lable[edges->index]=true;
             DFS(begin,edges->index);
         }
 
@@ -106,7 +105,7 @@ int main(void)
     output_graph(&nodes[0]); cout << endl;
 
     BFS(&nodes[0],0); cout << endl;
-    for(bool traverse:access_lable) {traverse=false;}
+    for(size_t i=0;i<size(access_lable);i++) {access_lable[i]=false;}
     DFS(&nodes[0],0); cout << endl;
 
     return 0;
