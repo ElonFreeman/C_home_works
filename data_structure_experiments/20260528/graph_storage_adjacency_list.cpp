@@ -16,55 +16,8 @@ struct vertexnode
     edge *first_edge,*end;
 };
 
-void BFS(vertexnode *vertexlist)
+void build_graph(vertexnode *nodes)
 {
-    deque<vertexnode> bfs_queue;
-    int vertex_index=0;
-    while(size(bfs_queue))
-    {
-        bfs_queue.push_back(vertexlist[vertex_index]);
-        edge *current=(vertexlist[vertex_index]).first_edge;
-        while(current!=nullptr)
-        {
-            if(access_lable[current->index]==true)
-            {
-                current=current->next;
-                continue;
-            }
-            else
-            {
-                bfs_queue.push_back(vertexlist[current->index]);
-                current=current->next;
-                access_lable[current->index]=true;
-            }
-        }
-        cout << bfs_queue.begin()->data << ' ';
-        bfs_queue.pop_front();
-        vertex_index++;
-    }
-    
-}
-
-void DFS(vertexnode *begin)
-{
-    for(int i=0;i<num_vertex;i++)
-    {
-        cout << begin[i].data << ' ';
-        access_lable[i]=true;
-        
-        if(begin[i].first_edge)
-        {
-            DFS(&begin[begin[i].first_edge->index]);
-
-        }
-    }
-
-}
-
-int main(void)
-{
-    cin >> num_vertex >> num_edge;
-    vector<vertexnode> nodes(num_vertex);
     for(int i=0;i<num_vertex;i++)
     {
         cin >> nodes[i].data,
@@ -84,7 +37,10 @@ int main(void)
         else
         {nodes[head].end->next=newedge,nodes[head].end=newedge;}
     }
+}
 
+void output_graph(vertexnode *nodes)
+{
     for(int i=0;i<num_vertex;i++)
     {
         cout << nodes[i].data << ' ';
@@ -96,6 +52,62 @@ int main(void)
         }
         cout << endl;
     }
+}
+
+void BFS(vertexnode *vertexlist,int begin_vertex)
+{
+    deque<int> bfs_queue;
+    bfs_queue.push_back(begin_vertex);
+    access_lable[begin_vertex]=true;
+
+    while(!(bfs_queue.empty()))
+    {
+        int index_fornt=bfs_queue.front();
+        edge *current=(vertexlist[index_fornt]).first_edge;
+        while(current!=nullptr)
+        {
+            if(access_lable[current->index]==false)
+            {
+                bfs_queue.push_back(current->index);
+                access_lable[current->index]=true;
+            }
+            current=current->next;
+        }
+
+        cout << vertexlist[bfs_queue.front()].data << ' ';
+        bfs_queue.pop_front();
+    }
+}
+
+void DFS(vertexnode *begin,int begin_index)
+{
+    cout << begin[begin_index].data << ' ';
+    access_lable[begin_index]=true;
+    
+    edge *edges=begin[begin_index].first_edge;
+    while(edges)
+    {
+        if(access_lable[edges->index]!=true)
+        {
+            cout << begin[edges->index].data << ' ',access_lable[edges->index]=true;
+            DFS(begin,edges->index);
+        }
+
+        edges=edges->next;
+    }
+}
+
+int main(void)
+{
+    cin >> num_vertex >> num_edge;
+    vector<vertexnode> nodes(num_vertex);
+    
+    build_graph(&nodes[0]);
+    output_graph(&nodes[0]); cout << endl;
+
+    BFS(&nodes[0],0); cout << endl;
+    for(bool traverse:access_lable) {traverse=false;}
+    DFS(&nodes[0],0); cout << endl;
 
     return 0;
 }
