@@ -54,45 +54,45 @@ void output_graph(vertexnode *nodes)
     }
 }
 
-void BFS(vertexnode *vertexlist,int begin_vertex)
+void BFS(vertexnode *vertexlist,int begin_vertex)  //paraments:vertexlist and begin vertex index
 {
-    deque<int> bfs_queue;
-    bfs_queue.push_back(begin_vertex);
-    access_lable[begin_vertex]=true;
+    deque<int> bfs_queue;  //setup a access queue,strore vertex index
+    bfs_queue.push_back(begin_vertex);  //beginner push into queue
+    access_lable[begin_vertex]=true;  //access lable set into true
 
-    while(!(bfs_queue.empty()))
+    while(!(bfs_queue.empty()))  //if queue is empty
     {
-        int index_fornt=bfs_queue.front();
-        edge *current=(vertexlist[index_fornt]).first_edge;
-        while(current!=nullptr)
-        {
-            if(access_lable[current->index]==false)
-            {
-                bfs_queue.push_back(current->index);
-                access_lable[current->index]=true;
-            }
-            current=current->next;
-        }
+        int index_fornt=bfs_queue.front();  //first element in the queue
+        cout << vertexlist[bfs_queue.front()].data << ' ';  //output
+        bfs_queue.pop_front();  //popout
 
-        cout << vertexlist[bfs_queue.front()].data << ' ';
-        bfs_queue.pop_front();
+        edge *current=(vertexlist[index_fornt]).first_edge;  //a pointer to first edge of current vertex
+        while(current!=nullptr)  //traverse adjacent vertex index linked list
+        {
+            if(access_lable[current->index]==false)  //if vertex not accessed
+            {
+                bfs_queue.push_back(current->index);  //push into queue
+                access_lable[current->index]=true;  //access lable set into true
+            }
+            current=current->next;  //move on
+        }        
     }
 }
 
-void DFS(vertexnode *begin,int begin_index)
+void DFS(vertexnode *begin,int begin_index)  //paraments:vertexlist and begin vertex index
 {
     cout << begin[begin_index].data << ' ';
     access_lable[begin_index]=true;
     
-    edge *edges=begin[begin_index].first_edge;
-    while(edges)
+    edge *current=begin[begin_index].first_edge;  //a pointer to first edge of current vertex
+    while(current!=nullptr)  //traverse adjacent vertex index linked list
     {
-        if(access_lable[edges->index]==false)
+        if(access_lable[current->index]==false)  //if vertex not accessed
         {
-            DFS(begin,edges->index);
+            DFS(begin,current->index);
         }
 
-        edges=edges->next;
+        current=current->next;  //move on
     }
 }
 
@@ -105,7 +105,7 @@ int main(void)
     output_graph(&nodes[0]); cout << endl;
 
     BFS(&nodes[0],0); cout << endl;
-    for(size_t i=0;i<size(access_lable);i++) {access_lable[i]=false;}
+    for(size_t i=0;i<size(access_lable);i++) {access_lable[i]=false;}  //reset access lables
     DFS(&nodes[0],0); cout << endl;
 
     return 0;
