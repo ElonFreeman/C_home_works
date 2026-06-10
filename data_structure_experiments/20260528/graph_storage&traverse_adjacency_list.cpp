@@ -54,7 +54,7 @@ void output_graph(vertexnode *nodes)
     }
 }
 
-void BFS(vertexnode *vertexlist,int begin_vertex)  //paraments:vertexlist and begin vertex index
+void BFS(vector<vertexnode>& vertexlist,int begin_vertex)  //paraments:vertexlist and begin vertex index
 {
     deque<int> bfs_queue;  //setup a access queue,strore vertex index
     bfs_queue.push_back(begin_vertex);  //beginner push into queue
@@ -79,17 +79,17 @@ void BFS(vertexnode *vertexlist,int begin_vertex)  //paraments:vertexlist and be
     }
 }
 
-void DFS(vertexnode *begin,int begin_index)  //paraments:vertexlist and begin vertex index
+void DFS(vector<vertexnode>& vertexlist,int begin_index)  //paraments:vertexlist and begin vertex index
 {
-    cout << begin[begin_index].data << ' ';
-    access_lable[begin_index]=true;
+    cout << vertexlist[begin_index].data << ' ';  //output
+    access_lable[begin_index]=true;  //popout
     
-    edge *current=begin[begin_index].first_edge;  //a pointer to first edge of current vertex
+    edge *current=vertexlist[begin_index].first_edge;  //a pointer to first edge of current vertex
     while(current!=nullptr)  //traverse adjacent vertex index linked list
     {
         if(access_lable[current->index]==false)  //if vertex not accessed
         {
-            DFS(begin,current->index);
+            DFS(vertexlist,current->index);  //recursion,based on index,pass on whole vertex list
         }
 
         current=current->next;  //move on
@@ -99,14 +99,14 @@ void DFS(vertexnode *begin,int begin_index)  //paraments:vertexlist and begin ve
 int main(void)
 {
     cin >> num_vertex >> num_edge;
-    vector<vertexnode> nodes(num_vertex);
+    vector<vertexnode> vertexlist(num_vertex);
     
-    build_graph(&nodes[0]);
-    output_graph(&nodes[0]); cout << endl;
+    build_graph(&vertexlist[0]);
+    output_graph(&vertexlist[0]); cout << endl;
 
-    BFS(&nodes[0],0); cout << endl;
+    BFS(vertexlist,0); cout << endl;
     for(size_t i=0;i<size(access_lable);i++) {access_lable[i]=false;}  //reset access lables
-    DFS(&nodes[0],0); cout << endl;
+    DFS(vertexlist,0); cout << endl;
 
     return 0;
 }
